@@ -1,0 +1,7 @@
+services:
+  app:
+    build: requirements/ai
+    image: yolo-fastapi:ft
+    container_name: yolo-fastapi
+    ports:
+      - "8000:8000"
