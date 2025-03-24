@@ -14,3 +14,6 @@
 
 * 컨테이너 로그 확인
 > docker logs [CONTAINER ID]
+
+* 테스트
+> localhost:8000/test -> {"message": "Hello World"} json으로 print
