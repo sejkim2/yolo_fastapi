@@ -1,35 +1,26 @@
-# Use the official Python image from Docker Hub
-FROM python:3.9-slim
+# 기본 NVIDIA CUDA와 PyTorch 이미지 사용
+FROM pytorch/pytorch:2.1.2-cuda11.8-cudnn8-runtime
 
-# Install system dependencies including libGL and libglib2.0-0 (no need for libgthread-2.0-0)
+# 시스템 의존성 설치 (OpenCV 관련 라이브러리는 필요 없음)
 RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Install OpenCV dependencies
-RUN apt-get update && apt-get install -y \
-    libopencv-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Set the working directory inside the container
+# 작업 디렉토리 설정
 WORKDIR /app
 
-# Copy the requirements.txt file and install dependencies
+# requirements.txt 복사 및 의존성 설치
 COPY conf/requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install OpenCV version that is compatible with your code
-RUN pip install opencv-python-headless==4.5.3.56
-
-# Copy the application code
+# 애플리케이션 코드 복사
 COPY app/ /app/
 
-# Copy the weights (models)
+# 모델 파일 복사
 COPY weights/ /app/weights/
 
-# Expose the port FastAPI will run on
+# FastAPI 실행 포트 노출
 EXPOSE 8000
 
-# Command to run the application
+# 애플리케이션 실행 명령어
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -5,3 +5,6 @@ services:
     container_name: yolo-fastapi
     ports:
       - "8000:8000"
+    runtime: nvidia  # GPU 사용을 위한 설정
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all  # 모든 GPU 장치 사용 (필요에 따라 "0", "1" 등으로 특정 GPU 선택 가능)
