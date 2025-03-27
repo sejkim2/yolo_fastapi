@@ -1,0 +1,5 @@
+train: /content/drive/MyDrive/YOLOv8/custom_train/train/images  # 학습 데이터 폴더
+val: /content/drive/MyDrive/YOLOv8/custom_train/val/images      # 검증 데이터 폴더
+
+nc: 1  # 번호판
+names: ["plate"]  # 클래스 이름
